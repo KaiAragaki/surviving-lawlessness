@@ -1,0 +1,15 @@
+Things happen. Sometimes, they're bad: Your car breaks down. You get cancer. Sometimes, though, good things happen: You graduate. Your child learns to walk. Your fussy flowers have finally bloomed. All these 'things' that happen are *events*, and they aren't certain to happen at a particular time. People don't ALWAYS graduate after 4 years, and children learn to walk at all different ages (so I'm told). These fall under a class of statistics known as 'time to event'. It's deliberately vague - the event could be good or bad, so 'time to death' is just as relevant as 'time to baby's first steps'.
+
+It would be nice to predict when some things would happen. Turns out, that's a bit more involved than you might expect.
+
+Let's get started.
+
+Suppose you already know the probability when a baby will take its first steps at any given moment. A lady with completely black eyes demanded the head of an elk and in return you were given a beautiful plot (which in itself is worth an elk head). But this plot shows the probability of a child learning to walk at every instant in his life.
+
+You gaze upon it and see the graph is quite low at the beginning. Babies fresh from the womb are more concerned with crying (understandable) than walking. As they grow up they tend to be a little more keen on walking at around a year old, so you see the plot go up. But then you see something strange. After about 2 years, the plot dips down again. Wait, you might think - shouldn't it get more likely for a baby - now toddler - to take their first steps the older they get? But this makes sense: if a child hasn't taken their first steps by age 2, it's possible something is preventing them - like lacking functional legs, or legs at all. Or perhaps they live in a house that has a floor that is just trampolines, and that's a little bit hard to get the hang of for your first steps. For these babies, it would take a while for them to get the hang of it (perhaps the babies without functional legs would get very cool mecha-legs). What's important to note is that in this plot, we assume that all babies EVENTUALLY will walk. This is not always the case.
+
+This beautiful plot you were given by the demon lady is known as a probability density function.
+
+* Questions
+- Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
+  - By definition, a probability density function must integrate to 1
