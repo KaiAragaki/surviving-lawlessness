@@ -1,4 +1,18 @@
-Things happen. Sometimes, they're bad: Your car breaks down. You get cancer. Sometimes, though, good things happen: You graduate. Your child learns to walk. Your fussy flowers have finally bloomed. All these 'things' that happen are *events*, and they aren't certain to happen at a particular time. People don't ALWAYS graduate after 4 years, and children learn to walk at all different ages (so I'm told). These fall under a class of statistics known as 'time to event'. It's deliberately vague - the event could be good or bad, so 'time to death' is just as relevant as 'time to baby's first steps'.
+* Introduction
+Like it or not, things are happening all the time. And even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don't know EXACTLY when these things happen. But if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
+
+* Definitions
+You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
+
+All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're 'events'. And they take a certain amount of 'time' to happen. So the analysis of them is called 'time to event analysis'. Easy enough. Sometimes it's called 'survival analysis', because it's used a lot when applied to people - sometimes it's useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they /survive/ (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I'm trying to write some notes here.)
+
+All of these things happen (are 'events', as we might call them) and happen at a certain 'time'. They might be best analyzed by /time to event/ analysis.
+
+We'll learn the complications of this analysis as we move along.
+
+* Teaching cats to sing
+My initial feeling of writing this was
+
 
 It would be nice to predict when some things would happen. Turns out, that's a bit more involved than you might expect.
 
