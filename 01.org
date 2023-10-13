@@ -1,5 +1,7 @@
+#+HTML_HEAD: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allegreya">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
 * Introduction
-Like it or not, things are happening all the time. And even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don't know EXACTLY when these things happen. But if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
+Like it or not, things are happening all the time. Even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don't know EXACTLY when these things happen. But if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
 
 * Definitions
 You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
@@ -11,19 +13,180 @@ All of these things happen (are 'events', as we might call them) and happen at a
 We'll learn the complications of this analysis as we move along.
 
 * Teaching cats to sing
-My initial feeling of writing this was
+A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that's a little depressing. So when possible, I'm going to talk about other subjects. Particularly cats.
+
+Let's imagine that all cats can sing. You haven't heard many cats sing because no one has bothered to try to train them. But with enough training, /ALL/ cats can sing. Note - no cats are BORN able to sing. They need training. (I'm setting up these rules because they are involved in math later. Don't worry about it now.)
+
+You've been training your cat since it was born, and it's been a couple months now: no singing. Should you be worried?
+
+** The probability density function
+You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They've all been training their cats since birth (the cats birth, not theirs) and told you the age that the cat started singing. You make a little plot:
+
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file five_cats.svg
+library(ggplot2)
+library(bladdr)
+
+set.seed(1)
+n <- 5
+df <- data.frame(
+  cat = 1:n,
+  sing_time = rgamma(n, 2)
+)
+ggplot(df, aes(x = sing_time, y = cat)) +
+  geom_segment(aes(x = 0, y = cat, xend = sing_time, yend = cat)) +
+  geom_point() +
+  theme_tufte(20) +
+  labs(x = "Cat age (human years)",
+       y = "Cat") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:five_cats.svg]]
+
+Looks like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you're not an idiot: you know just a few samples can be misleading. Plus you know this information will NOT be motivating for your cat. You begin a cat census, asking anyone and everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people (this is not a popular hobby):
+
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file 100_cats.svg
+library(ggplot2)
+library(bladdr)
+
+set.seed(2)
+n <- 100
+df <- data.frame(
+  cat = 1:n,
+  sing_time = sort(rgamma(n, 2))
+)
+ggplot(df, aes(x = sing_time, y = cat)) +
+  geom_segment(aes(x = 0, y = cat, xend = sing_time, yend = cat)) +
+  theme_tufte(20) +
+  labs(x = "Cat age (human years)",
+       y = "Cat") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:100_cats.svg]]
+
+It looks like somewhere between 1-2 years is the sweet spot for when most cats get their voice. You think about plotting these results a different way - a density histogram.
+
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file 100_cats_dense.svg
+df |> ggplot(aes(x = sing_time)) +
+  geom_density() +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+
+#+end_src
+
+#+RESULTS:
+[[file:100_cats_dense.svg]]
+
+It looks a bit lumpy. You want to know if there truly is a 'second wind' of learning at around 5 years or if it's just statistical noise - but you really left it all out on the field when you made all those calls for the cat census. You don't think you could gather even /more/ cat data.
+
+Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from  forest fauna) a beautiful plot (which as we all know is - by itself - worth all the viscera in the world). But this is not any plot: it is the fabled plot you seek, that shows the theoretical distribution of time-to-cat-singing. It's what you would have gotten if you had done an infinite cat census:
+
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file many_cats_dense.svg
+library(ggplot2)
+library(bladdr)
+
+set.seed(3)
+n <- 1000000
+data.frame(
+  cat = 1:n,
+  sing_time = sort(rgamma(n, 2))
+) |>
+  ggplot(aes(x = sing_time)) +
+  geom_density() +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:many_cats_dense.svg]]
 
 
-It would be nice to predict when some things would happen. Turns out, that's a bit more involved than you might expect.
+You notice that the highest peak is at around 2 years of age. This is around the time where most cats will learn to sing, but it looks like it's possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
 
-Let's get started.
+This plot is the visual representation of a /probability density function/, or (somewhat confusingly for fans of the widely used Adobe file format) a pdf. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 2', I'm betting everything I got against you.
 
-Suppose you already know the probability when a baby will take its first steps at any given moment. A lady with completely black eyes demanded the head of an elk and in return you were given a beautiful plot (which in itself is worth an elk head). But this plot shows the probability of a child learning to walk at every instant in his life.
+Density can also refer to materials. A quick search tells me that osmium is the densest naturally occurring material on Earth (besides me, depending on who you ask). Its density is 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I'm not even talking mm, or nm - not even angstroms. I'm talking about an infinitesimally small point in space. You know the answer. It's 0g.
 
-You gaze upon it and see the graph is quite low at the beginning. Babies fresh from the womb are more concerned with crying (understandable) than walking. As they grow up they tend to be a little more keen on walking at around a year old, so you see the plot go up. But then you see something strange. After about 2 years, the plot dips down again. Wait, you might think - shouldn't it get more likely for a baby - now toddler - to take their first steps the older they get? But this makes sense: if a child hasn't taken their first steps by age 2, it's possible something is preventing them - like lacking functional legs, or legs at all. Or perhaps they live in a house that has a floor that is just trampolines, and that's a little bit hard to get the hang of for your first steps. For these babies, it would take a while for them to get the hang of it (perhaps the babies without functional legs would get very cool mecha-legs). What's important to note is that in this plot, we assume that all babies EVENTUALLY will walk. This is not always the case.
+The probability density relates to our physical density in that physical density measures mass over volume, /this/ (but not all) probability density measures events over time.
 
-This beautiful plot you were given by the demon lady is known as a probability density function.
+** Doing stuff with the pdf
+Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They don't care. But you can do it.
+
+Just like you can find out how much mass of a substance there is by knowing how much volume there is and knowing its density, you can also figure out the probability of an event happening by knowing the pdf and the time range.
+
+Before we go any further, some math notation. I'm going to call the pdf $f$, and some arbitrary time $t$. So $f(t)$ is the probability of some event at time $t$ (which is, remember, 0).
+
+This function isn't as useless as it seems. If we multiply the pdf by time, we should get the probability of an event happening over that range of time. Except...our probability varies over time. With physical density, it didn't vary over the volume, so we could just multiply two constant numbers together and call it a day. We could do that if cats learned to sing with a constant probability over time, but they don't: there's a higher probability at age 2, and lower everywhere else. The probability of a cat learning to sing from age 4 to 6 is much lower than from age 1 to 3.
+
+FIGHERE: SHOW DIFFERENT HIGHLIGHTED REGIONS FOR 1-3 AND 4-6 ON PREVIOUS PLOT
+
+It's almost like...it matters...how much area is under the curve
+
+*** Uh oh
+Yeah. I know. Calculus. Integrals, to be specific. Unfortunately, they're very good at finding the area under the curve in a very general way.
+
+*** Integrating the pdf
+One useful function to have to know what the probability that Fluffy should have learned to sing by now - that is, the integral from birth ($t = 0$) to now ($t$).
+
+FIGHERE
+
+$$
+F(t)=Pr(T≤t)=∫ᵗ₀f(x)dx
+$$
+
+We call that function $F(t)$. In the medical field, you might consider this function the probability that a patient will have died between, say, when they were diagnosed ($t = 0$) and now ($t$).
+
+Another useful function is one that tells you the probability of Fluffy still not being able to sing at some time ($t$). This is the integral from $t$ to $∞$.
+
+$$
+S(t)=Pr(T≥t)=∫^{∞}ₜf(x)dx
+$$
+
+In the medical field, this might be the probability that a patient will survive until time $t$. This is why it's called the 'survival function' and is denoted by $S$.
+
+$S(t)$ has some important properties. It always goes down, never up - also known as 'monotone decreasing'. It also starts at 1 (that is, $S(0) = 1$. And it ends at 0 ($S(∞) = 0$). Thus, no cats are born singing, and all cats can learn to sing.
+
+Side note - $S(t)$ HAS to be monotone decreasing because it is the integral of a function that can never be negative (you'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0). $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
+
+
+So, $F(t)$ is the probability that an event will have occurred by time $t$, while $S(t)$ is the probability that an event will NOT have occurred by time $T$.
+
+It's important to note that if your patient had a 90% chance of not making it to time $t$ (that is, $F(t) = 0.9$), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn't make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all.
+
+** Hazard rates
+It's often helpful to know
+
+
+
+
 
 * Questions
 - Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
   - By definition, a probability density function must integrate to 1
+- If an event hasn't happened by time t, and it had a 90% chance of happening by now (F(t)), what can we say about the future? We can't say it has a 10% chance of happening - because otherwise we roll the dice and end up with an immortal human 9/10 times by this logic.
+  - I think this more refers to the probability of seeing an event like this, given this person is from this population
+* Notes
+- I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate)
+  - The pdf is the probability that given some random cat, they will have learned to sign at some (infinitesimally small interval of) time.
+    - The hazard rate is conditional. It is the probability that /given some cat that has made it this far without singing/ what is the probability that they will sing at this infinitesimally small interval?

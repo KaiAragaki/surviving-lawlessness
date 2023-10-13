@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-10-13 Fri 18:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Kai Aragaki" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allegreya">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge2882d3">1. Introduction</a></li>
+<li><a href="#orgb5b5e98">2. Definitions</a></li>
+<li><a href="#org8a4fdbf">3. Teaching cats to sing</a>
+<ul>
+<li><a href="#org862424d">3.1. The probability density function</a></li>
+<li><a href="#org8b36eea">3.2. Doing stuff with the pdf</a>
+<ul>
+<li><a href="#orge397daf">3.2.1. Uh oh</a></li>
+<li><a href="#orgbf157bf">3.2.2. Integrating the pdf</a></li>
+</ul>
+</li>
+<li><a href="#org7ef3c2e">3.3. Hazard rates</a></li>
+</ul>
+</li>
+<li><a href="#orga3af45f">4. Questions</a></li>
+<li><a href="#orgbcb0262">5. Notes</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge2882d3" class="outline-2">
+<h2 id="orge2882d3"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Like it or not, things are happening all the time. Even worse, you don&rsquo;t know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don&rsquo;t know EXACTLY when these things happen. But if you&rsquo;re clever, you can work up a handful of tools to help predict when something might happen. You&rsquo;ve given your dog 20 treats and head pats - what is the probability that he&rsquo;s finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don&rsquo;t worry. We&rsquo;re going to do this together. I even brought you a snorkel.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb5b5e98" class="outline-2">
+<h2 id="orgb5b5e98"><span class="section-number-2">2.</span> Definitions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
+</p>
+
+<p>
+All the above mentioned scenarios - dog shaking, baby walking, student graduating - they&rsquo;re &rsquo;events&rsquo;. And they take a certain amount of &rsquo;time&rsquo; to happen. So the analysis of them is called &rsquo;time to event analysis&rsquo;. Easy enough. Sometimes it&rsquo;s called &rsquo;survival analysis&rsquo;, because it&rsquo;s used a lot when applied to people - sometimes it&rsquo;s useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they <i>survive</i> (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I&rsquo;m trying to write some notes here.)
+</p>
+
+<p>
+All of these things happen (are &rsquo;events&rsquo;, as we might call them) and happen at a certain &rsquo;time&rsquo;. They might be best analyzed by <i>time to event</i> analysis.
+</p>
+
+<p>
+We&rsquo;ll learn the complications of this analysis as we move along.
+</p>
+</div>
+</div>
+<div id="outline-container-org8a4fdbf" class="outline-2">
+<h2 id="org8a4fdbf"><span class="section-number-2">3.</span> Teaching cats to sing</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that&rsquo;s a little depressing. So when possible, I&rsquo;m going to talk about other subjects. Particularly cats.
+</p>
+
+<p>
+Let&rsquo;s imagine that all cats can sing. You haven&rsquo;t heard many cats sing because no one has bothered to try to train them. But with enough training, <i>ALL</i> cats can sing. Note - no cats are BORN able to sing. They need training. (I&rsquo;m setting up these rules because they are involved in math later. Don&rsquo;t worry about it now.)
+</p>
+
+<p>
+You&rsquo;ve been training your cat since it was born, and it&rsquo;s been a couple months now: no singing. Should you be worried?
+</p>
+</div>
+<div id="outline-container-org862424d" class="outline-3">
+<h3 id="org862424d"><span class="section-number-3">3.1.</span> The probability density function</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They&rsquo;ve all been training their cats since birth (the cats birth, not theirs) and told you the age that the cat started singing. You make a little plot:
+</p>
+
+
+<div id="orgb149725" class="figure">
+<p><img src="five_cats.svg" alt="five_cats.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+Looks like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you&rsquo;re not an idiot: you know just a few samples can be misleading. Plus you know this information will NOT be motivating for your cat. You begin a cat census, asking anyone and everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people (this is not a popular hobby):
+</p>
+
+
+<div id="org6eb8469" class="figure">
+<p><img src="100_cats.svg" alt="100_cats.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+It looks like somewhere between 1-2 years is the sweet spot for when most cats get their voice. You think about plotting these results a different way - a density histogram.
+</p>
+
+
+<div id="org47b9b5e" class="figure">
+<p><img src="100_cats_dense.svg" alt="100_cats_dense.svg" class="org-svg" />
+</p>
+</div>
+
+<p>
+It looks a bit lumpy. You want to know if there truly is a &rsquo;second wind&rsquo; of learning at around 5 years or if it&rsquo;s just statistical noise - but you really left it all out on the field when you made all those calls for the cat census. You don&rsquo;t think you could gather even <i>more</i> cat data.
+</p>
+
+<p>
+Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from  forest fauna) a beautiful plot (which as we all know is - by itself - worth all the viscera in the world). But this is not any plot: it is the fabled plot you seek, that shows the theoretical distribution of time-to-cat-singing. It&rsquo;s what you would have gotten if you had done an infinite cat census:
+</p>
+
+
+<div id="orgd8d045c" class="figure">
+<p><img src="many_cats_dense.svg" alt="many_cats_dense.svg" class="org-svg" />
+</p>
+</div>
+
+
+<p>
+You notice that the highest peak is at around 2 years of age. This is around the time where most cats will learn to sing, but it looks like it&rsquo;s possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
+</p>
+
+<p>
+This plot is the visual representation of a <i>probability density function</i>, or (somewhat confusingly for fans of the widely used Adobe file format) a pdf. To explain why it&rsquo;s called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don&rsquo;t care that the plot shows a high peak at that point - if we&rsquo;re betting on when your cat would sing, and you say &rsquo;the instant it turns 2&rsquo;, I&rsquo;m betting everything I got against you.
+</p>
+
+<p>
+Density can also refer to materials. A quick search tells me that osmium is the densest naturally occurring material on Earth (besides me, depending on who you ask). Its density is 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I&rsquo;m not even talking mm, or nm - not even angstroms. I&rsquo;m talking about an infinitesimally small point in space. You know the answer. It&rsquo;s 0g.
+</p>
+
+<p>
+The probability density relates to our physical density in that physical density measures mass over volume, <i>this</i> (but not all) probability density measures events over time.
+</p>
+</div>
+</div>
+<div id="outline-container-org8b36eea" class="outline-3">
+<h3 id="org8b36eea"><span class="section-number-3">3.2.</span> Doing stuff with the pdf</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They don&rsquo;t care. But you can do it.
+</p>
+
+<p>
+Just like you can find out how much mass of a substance there is by knowing how much volume there is and knowing its density, you can also figure out the probability of an event happening by knowing the pdf and the time range.
+</p>
+
+<p>
+Before we go any further, some math notation. I&rsquo;m going to call the pdf \(f\), and some arbitrary time \(t\). So \(f(t)\) is the probability of some event at time \(t\) (which is, remember, 0).
+</p>
+
+<p>
+This function isn&rsquo;t as useless as it seems. If we multiply the pdf by time, we should get the probability of an event happening over that range of time. Except&#x2026;our probability varies over time. With physical density, it didn&rsquo;t vary over the volume, so we could just multiply two constant numbers together and call it a day. We could do that if cats learned to sing with a constant probability over time, but they don&rsquo;t: there&rsquo;s a higher probability at age 2, and lower everywhere else. The probability of a cat learning to sing from age 4 to 6 is much lower than from age 1 to 3.
+</p>
+
+<p>
+FIGHERE: SHOW DIFFERENT HIGHLIGHTED REGIONS FOR 1-3 AND 4-6 ON PREVIOUS PLOT
+</p>
+
+<p>
+It&rsquo;s almost like&#x2026;it matters&#x2026;how much area is under the curve
+</p>
+</div>
+<div id="outline-container-orge397daf" class="outline-4">
+<h4 id="orge397daf"><span class="section-number-4">3.2.1.</span> Uh oh</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+Yeah. I know. Calculus. Integrals, to be specific. Unfortunately, they&rsquo;re very good at finding the area under the curve in a very general way.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbf157bf" class="outline-4">
+<h4 id="orgbf157bf"><span class="section-number-4">3.2.2.</span> Integrating the pdf</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+One useful function to have to know what the probability that Fluffy should have learned to sing by now - that is, the integral from birth (\(t = 0\)) to now (\(t\)).
+</p>
+
+<p>
+FIGHERE
+</p>
+
+<p>
+\[
+F(t)=Pr(T≤t)=∫ᵗ₀f(x)dx
+\]
+</p>
+
+<p>
+We call that function \(F(t)\). In the medical field, you might consider this function the probability that a patient will have died between, say, when they were diagnosed (\(t = 0\)) and now (\(t\)).
+</p>
+
+<p>
+Another useful function is one that tells you the probability of Fluffy still not being able to sing at some time (\(t\)). This is the integral from \(t\) to \(∞\).
+</p>
+
+<p>
+\[
+S(t)=Pr(T≥t)=∫^{∞}ₜf(x)dx
+\]
+</p>
+
+<p>
+In the medical field, this might be the probability that a patient will survive until time \(t\). This is why it&rsquo;s called the &rsquo;survival function&rsquo; and is denoted by \(S\).
+</p>
+
+<p>
+\(S(t)\) has some important properties. It always goes down, never up - also known as &rsquo;monotone decreasing&rsquo;. It also starts at 1 (that is, \(S(0) = 1\). And it ends at 0 (\(S(∞) = 0\)). Thus, no cats are born singing, and all cats can learn to sing.
+</p>
+
+<p>
+Side note - \(S(t)\) HAS to be monotone decreasing because it is the integral of a function that can never be negative (you&rsquo;ll need to think about the relationship between a curve and its integral - but basically it goes up whenever it &rsquo;adds&rsquo; more area under the curve and goes down whenever it &rsquo;subtracts&rsquo; area under the curve - which happens when the curve being integrated goes below 0). \(f(t)\) can never be negative, because negative probabilities do not make sense. It either happens or it doesn&rsquo;t - it can&rsquo;t &rsquo;anti-happen&rsquo;.
+</p>
+
+
+<p>
+So, \(F(t)\) is the probability that an event will have occurred by time \(t\), while \(S(t)\) is the probability that an event will NOT have occurred by time \(T\).
+</p>
+
+<p>
+It&rsquo;s important to note that if your patient had a 90% chance of not making it to time \(t\) (that is, \(F(t) = 0.9\)), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn&rsquo;t make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org7ef3c2e" class="outline-3">
+<h3 id="org7ef3c2e"><span class="section-number-3">3.3.</span> Hazard rates</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+It&rsquo;s often helpful to know
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga3af45f" class="outline-2">
+<h2 id="orga3af45f"><span class="section-number-2">4.</span> Questions</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
+<ul class="org-ul">
+<li>By definition, a probability density function must integrate to 1</li>
+</ul></li>
+<li>If an event hasn&rsquo;t happened by time t, and it had a 90% chance of happening by now (F(t)), what can we say about the future? We can&rsquo;t say it has a 10% chance of happening - because otherwise we roll the dice and end up with an immortal human 9/10 times by this logic.
+<ul class="org-ul">
+<li>I think this more refers to the probability of seeing an event like this, given this person is from this population</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbcb0262" class="outline-2">
+<h2 id="orgbcb0262"><span class="section-number-2">5.</span> Notes</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: <a href="https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate">https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate</a>)
+<ul class="org-ul">
+<li>The pdf is the probability that given some random cat, they will have learned to sign at some (infinitesimally small interval of) time.
+<ul class="org-ul">
+<li>The hazard rate is conditional. It is the probability that <i>given some cat that has made it this far without singing</i> what is the probability that they will sing at this infinitesimally small interval?</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kai Aragaki</p>
+<p class="date">Created: 2023-10-13 Fri 18:01</p>
+</div>
+</body>
+</html>
