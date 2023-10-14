@@ -254,7 +254,7 @@ We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to 
 No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We do this by /dividing the pdf by the survival function/. We call this function the /hazard function/.
 
 $$
-h(x) = \div{f(x)}{S(x)}
+h(x) = \frac{f(x)}{S(x)}
 $$
 
 This makes sense. As I said before, the survival function is always decreasing, making the output of this function larger and larger as time goes by. That makes sense: if something is guaranteed to happen, you'd expect it to become more and more likely as your 'time runs out'.
