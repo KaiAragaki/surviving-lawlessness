@@ -102,18 +102,13 @@ Whenever you are faced with these issues, you know just where to go: the lady wi
 library(ggplot2)
 library(bladdr)
 
-set.seed(3)
-n <- 1000000
-data.frame(
-  cat = 1:n,
-  sing_time = sort(rgamma(n, 2))
-) |>
-  ggplot(aes(x = sing_time)) +
-  geom_density() +
+ggplot(data.frame(x = c(0, 11)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2)) +
   theme_tufte() +
   labs(x = "Cat age (human years)") +
   theme(axis.ticks.y = element_blank(),
         axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
         plot.background = element_blank(),
         panel.background = element_blank())
 #+end_src
@@ -122,9 +117,9 @@ data.frame(
 [[file:many_cats_dense.svg]]
 
 
-You notice that the highest peak is at around 2 years of age. This is around the time where most cats will learn to sing, but it looks like it's possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
+You notice that the highest peak is at around 1 year of age. This is around the time where most cats will learn to sing, but it looks like it's possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
 
-This plot is the visual representation of a /probability density function/, or (somewhat confusingly for fans of the widely used Adobe file format) a pdf. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 2', I'm betting everything I got against you.
+This plot is the visual representation of a /probability density function/, or (somewhat confusingly for fans of the widely used Adobe file format) a pdf. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 1', I'm betting everything I got against you.
 
 Density can also refer to materials. A quick search tells me that osmium is the densest naturally occurring material on Earth (besides me, depending on who you ask). Its density is 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I'm not even talking mm, or nm - not even angstroms. I'm talking about an infinitesimally small point in space. You know the answer. It's 0g.
 
@@ -137,9 +132,29 @@ Just like you can find out how much mass of a substance there is by knowing how 
 
 Before we go any further, some math notation. I'm going to call the pdf $f$, and some arbitrary time $t$. So $f(t)$ is the probability of some event at time $t$ (which is, remember, 0).
 
-This function isn't as useless as it seems. If we multiply the pdf by time, we should get the probability of an event happening over that range of time. Except...our probability varies over time. With physical density, it didn't vary over the volume, so we could just multiply two constant numbers together and call it a day. We could do that if cats learned to sing with a constant probability over time, but they don't: there's a higher probability at age 2, and lower everywhere else. The probability of a cat learning to sing from age 4 to 6 is much lower than from age 1 to 3.
+This function isn't as useless as it seems. If we multiply the pdf by time, we should get the probability of an event happening over that range of time. Except...our probability varies over time. With physical density, it didn't vary across the volume of the object (provided it's a pure substance), so we could just multiply two constant numbers (the volume times the density) together and call it a day. We could do that if cats learned to sing with a constant probability over time, but they don't: as we saw, there's a higher probability at age 1, and lower everywhere else. The probability of a cat learning to sing from age 4 to 6 is much lower than from age 1 to 3.
 
-FIGHERE: SHOW DIFFERENT HIGHLIGHTED REGIONS FOR 1-3 AND 4-6 ON PREVIOUS PLOT
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file many_cats_highlight.svg
+library(ggplot2)
+library(bladdr)
+
+ggplot(data.frame(x = c(0, 11)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2)) +
+  stat_function(fun = dgamma, args = c(2), xlim = c(1, 3), geom = "area", fill = "green") +
+  stat_function(fun = dgamma, args = c(2), xlim = c(4, 6), geom = "area", fill = "red") +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:many_cats_highlight.svg]]
+
 
 It's almost like...it matters...how much area is under the curve
 
@@ -149,18 +164,56 @@ Yeah. I know. Calculus. Integrals, to be specific. Unfortunately, they're very g
 *** Integrating the pdf
 One useful function to have to know what the probability that Fluffy should have learned to sing by now - that is, the integral from birth ($t = 0$) to now ($t$).
 
-FIGHERE
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file many_cats_0-to-t.svg
+library(ggplot2)
+library(bladdr)
+
+ggplot(data.frame(x = c(0, 11)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2)) +
+  stat_function(fun = dgamma, args = c(2), xlim = c(0, 2), geom = "area", fill = "gray50") +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:many_cats_0-to-t.svg]]
 
 $$
-F(t)=Pr(T≤t)=∫ᵗ₀f(x)dx
+F(t)=Pr(T≤t)=\int_{0}^{t}f(x)dx
 $$
 
 We call that function $F(t)$. In the medical field, you might consider this function the probability that a patient will have died between, say, when they were diagnosed ($t = 0$) and now ($t$).
 
 Another useful function is one that tells you the probability of Fluffy still not being able to sing at some time ($t$). This is the integral from $t$ to $∞$.
 
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file many_cats_t-to-inf.svg
+library(ggplot2)
+library(bladdr)
+
+ggplot(data.frame(x = c(0, 11)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2)) +
+  stat_function(fun = dgamma, args = c(2), xlim = c(2, 11), geom = "area", fill = "gray50") +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:many_cats_t-to-inf.svg]]
+
 $$
-S(t)=Pr(T≥t)=∫^{∞}ₜf(x)dx
+S(t)=Pr(T≥t)=\int^{∞}_{t}f(x)dx
 $$
 
 In the medical field, this might be the probability that a patient will survive until time $t$. This is why it's called the 'survival function' and is denoted by $S$.
@@ -169,14 +222,47 @@ $S(t)$ has some important properties. It always goes down, never up - also known
 
 Side note - $S(t)$ HAS to be monotone decreasing because it is the integral of a function that can never be negative (you'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0). $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
 
-
 So, $F(t)$ is the probability that an event will have occurred by time $t$, while $S(t)$ is the probability that an event will NOT have occurred by time $T$.
 
 It's important to note that if your patient had a 90% chance of not making it to time $t$ (that is, $F(t) = 0.9$), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn't make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all.
 
 ** Hazard rates
-It's often helpful to know
+So, a cat has trained for 7 years and sits in front of you, utterly mute. Suppose we naively tried to use our pdf to determine the probability of this cat learning to sing some time in the future:
 
+#+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
+#+begin_src R :results graphics file :session :exports results :file 7-to-17.svg
+library(ggplot2)
+library(bladdr)
+
+ggplot(data.frame(x = c(0, 11)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2)) +
+  stat_function(fun = dgamma, args = c(2), xlim = c(2, 11), geom = "area", fill = "gray50") +
+  theme_tufte() +
+  labs(x = "Cat age (human years)") +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        plot.background = element_blank(),
+        panel.background = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:7-to-17.svg]]
+
+We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to have a cat that can't sing???
+
+No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We do this by /dividing the pdf by the survival function/. We call this function the /hazard function/.
+
+$$
+h(x) = \div{f(x)}{S(x)}
+$$
+
+This makes sense. As I said before, the survival function is always decreasing, making the output of this function larger and larger as time goes by. That makes sense: if something is guaranteed to happen, you'd expect it to become more and more likely as your 'time runs out'.
+
+Individual times on this plot are known as /instantaneous hazard rates/.
+
+* Questions
+- Is it true that all hazard functions increase at the end?
 
 
 

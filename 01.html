@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-10-13 Fri 18:01 -->
+<!-- 2023-10-13 Fri 21:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -234,35 +234,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge2882d3">1. Introduction</a></li>
-<li><a href="#orgb5b5e98">2. Definitions</a></li>
-<li><a href="#org8a4fdbf">3. Teaching cats to sing</a>
+<li><a href="#org74825f0">1. Introduction</a></li>
+<li><a href="#orgc079653">2. Definitions</a></li>
+<li><a href="#orga0a3849">3. Teaching cats to sing</a>
 <ul>
-<li><a href="#org862424d">3.1. The probability density function</a></li>
-<li><a href="#org8b36eea">3.2. Doing stuff with the pdf</a>
+<li><a href="#org39f1cb6">3.1. The probability density function</a></li>
+<li><a href="#orgc242a9d">3.2. Doing stuff with the pdf</a>
 <ul>
-<li><a href="#orge397daf">3.2.1. Uh oh</a></li>
-<li><a href="#orgbf157bf">3.2.2. Integrating the pdf</a></li>
+<li><a href="#org0a4a535">3.2.1. Uh oh</a></li>
+<li><a href="#org1fd61ab">3.2.2. Integrating the pdf</a></li>
 </ul>
 </li>
-<li><a href="#org7ef3c2e">3.3. Hazard rates</a></li>
+<li><a href="#org23e4f96">3.3. Hazard rates</a></li>
 </ul>
 </li>
-<li><a href="#orga3af45f">4. Questions</a></li>
-<li><a href="#orgbcb0262">5. Notes</a></li>
+<li><a href="#org0318beb">4. Questions</a></li>
+<li><a href="#org9dfa707">5. Notes</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge2882d3" class="outline-2">
-<h2 id="orge2882d3"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-org74825f0" class="outline-2">
+<h2 id="org74825f0"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Like it or not, things are happening all the time. Even worse, you don&rsquo;t know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don&rsquo;t know EXACTLY when these things happen. But if you&rsquo;re clever, you can work up a handful of tools to help predict when something might happen. You&rsquo;ve given your dog 20 treats and head pats - what is the probability that he&rsquo;s finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don&rsquo;t worry. We&rsquo;re going to do this together. I even brought you a snorkel.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb5b5e98" class="outline-2">
-<h2 id="orgb5b5e98"><span class="section-number-2">2.</span> Definitions</h2>
+<div id="outline-container-orgc079653" class="outline-2">
+<h2 id="orgc079653"><span class="section-number-2">2.</span> Definitions</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
@@ -281,8 +281,8 @@ We&rsquo;ll learn the complications of this analysis as we move along.
 </p>
 </div>
 </div>
-<div id="outline-container-org8a4fdbf" class="outline-2">
-<h2 id="org8a4fdbf"><span class="section-number-2">3.</span> Teaching cats to sing</h2>
+<div id="outline-container-orga0a3849" class="outline-2">
+<h2 id="orga0a3849"><span class="section-number-2">3.</span> Teaching cats to sing</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that&rsquo;s a little depressing. So when possible, I&rsquo;m going to talk about other subjects. Particularly cats.
@@ -296,15 +296,15 @@ Let&rsquo;s imagine that all cats can sing. You haven&rsquo;t heard many cats si
 You&rsquo;ve been training your cat since it was born, and it&rsquo;s been a couple months now: no singing. Should you be worried?
 </p>
 </div>
-<div id="outline-container-org862424d" class="outline-3">
-<h3 id="org862424d"><span class="section-number-3">3.1.</span> The probability density function</h3>
+<div id="outline-container-org39f1cb6" class="outline-3">
+<h3 id="org39f1cb6"><span class="section-number-3">3.1.</span> The probability density function</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They&rsquo;ve all been training their cats since birth (the cats birth, not theirs) and told you the age that the cat started singing. You make a little plot:
 </p>
 
 
-<div id="orgb149725" class="figure">
+<div id="orgc16836a" class="figure">
 <p><img src="five_cats.svg" alt="five_cats.svg" class="org-svg" />
 </p>
 </div>
@@ -314,7 +314,7 @@ Looks like most cats are taking more than a year or two to learn how to sing. Yo
 </p>
 
 
-<div id="org6eb8469" class="figure">
+<div id="org6c9fd87" class="figure">
 <p><img src="100_cats.svg" alt="100_cats.svg" class="org-svg" />
 </p>
 </div>
@@ -324,7 +324,7 @@ It looks like somewhere between 1-2 years is the sweet spot for when most cats g
 </p>
 
 
-<div id="org47b9b5e" class="figure">
+<div id="org0c0b38e" class="figure">
 <p><img src="100_cats_dense.svg" alt="100_cats_dense.svg" class="org-svg" />
 </p>
 </div>
@@ -338,7 +338,7 @@ Whenever you are faced with these issues, you know just where to go: the lady wi
 </p>
 
 
-<div id="orgd8d045c" class="figure">
+<div id="org6bc88a6" class="figure">
 <p><img src="many_cats_dense.svg" alt="many_cats_dense.svg" class="org-svg" />
 </p>
 </div>
@@ -361,8 +361,8 @@ The probability density relates to our physical density in that physical density
 </p>
 </div>
 </div>
-<div id="outline-container-org8b36eea" class="outline-3">
-<h3 id="org8b36eea"><span class="section-number-3">3.2.</span> Doing stuff with the pdf</h3>
+<div id="outline-container-orgc242a9d" class="outline-3">
+<h3 id="orgc242a9d"><span class="section-number-3">3.2.</span> Doing stuff with the pdf</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They don&rsquo;t care. But you can do it.
@@ -388,16 +388,16 @@ FIGHERE: SHOW DIFFERENT HIGHLIGHTED REGIONS FOR 1-3 AND 4-6 ON PREVIOUS PLOT
 It&rsquo;s almost like&#x2026;it matters&#x2026;how much area is under the curve
 </p>
 </div>
-<div id="outline-container-orge397daf" class="outline-4">
-<h4 id="orge397daf"><span class="section-number-4">3.2.1.</span> Uh oh</h4>
+<div id="outline-container-org0a4a535" class="outline-4">
+<h4 id="org0a4a535"><span class="section-number-4">3.2.1.</span> Uh oh</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 Yeah. I know. Calculus. Integrals, to be specific. Unfortunately, they&rsquo;re very good at finding the area under the curve in a very general way.
 </p>
 </div>
 </div>
-<div id="outline-container-orgbf157bf" class="outline-4">
-<h4 id="orgbf157bf"><span class="section-number-4">3.2.2.</span> Integrating the pdf</h4>
+<div id="outline-container-org1fd61ab" class="outline-4">
+<h4 id="org1fd61ab"><span class="section-number-4">3.2.2.</span> Integrating the pdf</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 One useful function to have to know what the probability that Fluffy should have learned to sing by now - that is, the integral from birth (\(t = 0\)) to now (\(t\)).
@@ -450,8 +450,8 @@ It&rsquo;s important to note that if your patient had a 90% chance of not making
 </div>
 </div>
 </div>
-<div id="outline-container-org7ef3c2e" class="outline-3">
-<h3 id="org7ef3c2e"><span class="section-number-3">3.3.</span> Hazard rates</h3>
+<div id="outline-container-org23e4f96" class="outline-3">
+<h3 id="org23e4f96"><span class="section-number-3">3.3.</span> Hazard rates</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 It&rsquo;s often helpful to know
@@ -459,8 +459,8 @@ It&rsquo;s often helpful to know
 </div>
 </div>
 </div>
-<div id="outline-container-orga3af45f" class="outline-2">
-<h2 id="orga3af45f"><span class="section-number-2">4.</span> Questions</h2>
+<div id="outline-container-org0318beb" class="outline-2">
+<h2 id="org0318beb"><span class="section-number-2">4.</span> Questions</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
@@ -474,8 +474,8 @@ It&rsquo;s often helpful to know
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbcb0262" class="outline-2">
-<h2 id="orgbcb0262"><span class="section-number-2">5.</span> Notes</h2>
+<div id="outline-container-org9dfa707" class="outline-2">
+<h2 id="org9dfa707"><span class="section-number-2">5.</span> Notes</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: <a href="https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate">https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate</a>)
@@ -491,7 +491,7 @@ It&rsquo;s often helpful to know
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kai Aragaki</p>
-<p class="date">Created: 2023-10-13 Fri 18:01</p>
+<p class="date">Created: 2023-10-13 Fri 21:33</p>
 </div>
 </body>
 </html>

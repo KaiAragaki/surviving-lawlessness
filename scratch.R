@@ -49,3 +49,7 @@ ggplot(df, aes(gs)) +
        y = "Probability of singing") +
   theme(axis.ticks.y = element_blank(),
         axis.text.y = element_blank())
+
+
+ggplot(data.frame(x = c(0, 20)), aes(x)) +
+  stat_function(fun = dgamma, args = c(2))
