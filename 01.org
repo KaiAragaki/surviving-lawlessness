@@ -251,27 +251,41 @@ ggplot(data.frame(x = c(0, 11)), aes(x)) +
 
 We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to have a cat that can't sing???
 
-No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We do this by /dividing the pdf by the survival function/. We call this function the /hazard function/.
+No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing.
+
+What we really want to know is some measure of the imminence of an event.
+
+This exists, and is known as the 'hazard rate'. If velocity measures how soon you're going to hit your next meter, then hazard rate measures how soon you're going to hit your next event.
+
+Let's put the question we're actually asking into words:
+
+Given that our cat has not yet sung at age 7, what is the probability that this cat will learn to sing in the next...10/5/1 year(s)?
+
+Or rather:
+
+$$
+Pr(t≤T<t + Δt|T≥t)
+$$
+
+Where $Δt$ represents the timeframe we're interested in. But remember,
+
+
+
+We do this by /dividing the pdf by the survival function/. We call this function the /hazard function/.
 
 $$
 h(x) = \frac{f(x)}{S(x)}
 $$
 
-This makes sense. As I said before, the survival function is always decreasing, making the output of this function larger and larger as time goes by. That makes sense: if something is guaranteed to happen, you'd expect it to become more and more likely as your 'time runs out'.
+This hazard function represents the expected number of events for a given time period, assuming that the event hasn't already happened. We could interpret $h(10) = 100$ to mean that we would expect a 10 year old cat that hasn't learned to sing 100 times over during the next unit of time (in this case, years). That is, if our cat learned to sing, and then had the memory deleted from its memory, it could learn, then forget, then learn, then forget..100 times over during the course of a year.
 
-Individual times on this plot are known as /instantaneous hazard rates/.
+This hazard function is also known as the /hazard rate/, which is a good name. Speed is another kind of rate. If someone is going 10km/h, there's no guaranteeing that they'll be 10km away in an hour. It's just what you measured at the beginning. Their /instantaneous/ speed. What if slow down half way through?
 
-* Questions
-- Is it true that all hazard functions increase at the end?
+Like our density example, we need to integrate to see how much hazard you might experience over a given time frame.
+
+Often, hazard functions go up over time - like in our cat example, and also in human mortality. But functions don't always need to go up. Sometimes the longer you've been around, the longer you WILL be around (known as the 'Lindy effect'). But the cumulative hazard DOES need to go up. So while it might be less risky to at each moment to keep on going, the amount of risk you experience is still non-zero, and it does get added to the ledger of risk you've experienced all time. It's like the risk of making a mistake when learning to play the piano. If you've miraculously managed to never make a mistake during the beginning stages, the risk of you making a mistake as you get better goes down. But over a long enough time, you still risk making a mistake, even if you are quite good.
 
 
-
-
-* Questions
-- Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
-  - By definition, a probability density function must integrate to 1
-- If an event hasn't happened by time t, and it had a 90% chance of happening by now (F(t)), what can we say about the future? We can't say it has a 10% chance of happening - because otherwise we roll the dice and end up with an immortal human 9/10 times by this logic.
-  - I think this more refers to the probability of seeing an event like this, given this person is from this population
 * Notes
 - I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate)
   - The pdf is the probability that given some random cat, they will have learned to sign at some (infinitesimally small interval of) time.
