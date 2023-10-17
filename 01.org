@@ -1,5 +1,7 @@
+#+TITLE: Surviving Lawlessness - Chapter 1, Section 1-2
 #+HTML_HEAD: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allegreya">
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
+
 * Introduction
 Like it or not, things are happening all the time. Even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don't know EXACTLY when these things happen. But if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
 
@@ -263,30 +265,78 @@ Given that our cat has not yet sung at age 7, what is the probability that this 
 
 Or rather:
 
-$$
-Pr(t≤T<t + Δt|T≥t)
-$$
+$$Pr(t≤T < t + Δt|T≥t)$$
 
-Where $Δt$ represents the timeframe we're interested in. But remember,
+The bar ($|$) means 'given'. So, assuming that our cat has gone this long without singing ($| T≤t$) what is $Pr(t≤T < t + Δt)$ (the probability that it'll learn how to sing in this next time frame ($Δt$))?
 
-
-
-We do this by /dividing the pdf by the survival function/. We call this function the /hazard function/.
+This is what we WANT. How we get it requires a little rearranging - but we /can/ do it. To pull this off, we need to know Bayes theorem. This guy is super hot right now as well as super dead, but we don't need to go in to that. What we need to know is that he proved this:
 
 $$
-h(x) = \frac{f(x)}{S(x)}
+Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
 $$
+
+If we compare it to our previous equation, we can match it up by setting $A = t≤T < t + Δt$ and $B = T≥t$. Substituting in our own $A$ and $B$, we get:
+
+$$
+Pr(t≤T < t + Δt|T≥t) = \frac{Pr(T≥t|t≤T < t + Δt)Pr(t≤T < t + Δt)}{Pr(T≥t)}
+$$
+
+We can work with this. Let's go through the chunks one at a time:
+
+$$
+Pr(T≥t|t≤T < t + Δt)
+$$
+
+Reading this out: What is the probability that our cat has learned to sing either now or in the future, given that our cat has learned to sing now or a little bit in the future?
+
+You might be able to sense the repetition here. What's the probability of something happening given it's happened? Well...it's guaranteed. It happened. 100%. 1.
+
+$$
+Pr(T≥t|t≤T < t + Δt) = 1
+$$
+
+Next chunk:
+
+$$
+Pr(t≤T < t + Δt)
+$$
+
+This is the probability that your cat will sing between now and a bit in the future. We know this too - it's from the pdf. It's just a tiny integral:
+
+$$
+Pr(t≤T < t + Δt) = ∫_{t}^{t + Δt}f(x)dx
+$$
+
+And finally:
+
+$$
+Pr(T≥t)
+$$
+
+We've seen this before, exactly - It's $S(t)$
+
+$$
+Pr(T≥t) = S(t)
+$$
+
+All together:
+
+$$
+Pr(t≤T < t + Δt|T≥t) = \frac{1×∫_{t}^{t + Δt}f(x)dx}{S(t)}
+$$
+
+This is the probability of experiencing some event in a given time frame, given no event has been observed previously. This last 'conditional' part is important, since a dead guy has no chance of dying in the future.
+
+It can be mathematically useful to determine the 'instantaneous rate' of an event. This is the hazard rate, or hazard function. The interpretation of this is quite challenging, and in my personal opinion it tends to be more useful when used /for/ other things, rather than as itself.
+
+It's just the probability we calculated above, divided by the same time frame ($Δt$), as the time frame approaches 0. A higher value means greater imminence of the event, a smaller number means lower imminence. It can go up and down, but it can't be negative. It can be way, way bigger than 1, so it's not a probability.
+
+$$
+h(x) = \lim_{Δt → 0} \frac{∫_{t}^{t + Δt}f(x)dx}{S(t)} = \frac{f(x)}{S(t)}
+$$
+
+Often, hazard functions go up over time - like in our cat example, and also in human mortality. But they don't always need to go up. Sometimes the longer you've been around, the longer you WILL be around (known as the 'Lindy effect'). But the cumulative hazard DOES need to go up. So while it might be less risky to at each moment to keep on going, the amount of risk you experience is still non-zero, and it does get added to the ledger of risk you've experienced all time. It's like the risk of making a mistake when learning to play the piano. If you've miraculously managed to never make a mistake during the beginning stages, the risk of you making a mistake as you get better goes down. But over a long enough time, you still risk making a mistake, even if you are quite good.
+
+I'm not super jazzed about a practical interpretation of hazard functions, but here I go:
 
 This hazard function represents the expected number of events for a given time period, assuming that the event hasn't already happened. We could interpret $h(10) = 100$ to mean that we would expect a 10 year old cat that hasn't learned to sing 100 times over during the next unit of time (in this case, years). That is, if our cat learned to sing, and then had the memory deleted from its memory, it could learn, then forget, then learn, then forget..100 times over during the course of a year.
-
-This hazard function is also known as the /hazard rate/, which is a good name. Speed is another kind of rate. If someone is going 10km/h, there's no guaranteeing that they'll be 10km away in an hour. It's just what you measured at the beginning. Their /instantaneous/ speed. What if slow down half way through?
-
-Like our density example, we need to integrate to see how much hazard you might experience over a given time frame.
-
-Often, hazard functions go up over time - like in our cat example, and also in human mortality. But functions don't always need to go up. Sometimes the longer you've been around, the longer you WILL be around (known as the 'Lindy effect'). But the cumulative hazard DOES need to go up. So while it might be less risky to at each moment to keep on going, the amount of risk you experience is still non-zero, and it does get added to the ledger of risk you've experienced all time. It's like the risk of making a mistake when learning to play the piano. If you've miraculously managed to never make a mistake during the beginning stages, the risk of you making a mistake as you get better goes down. But over a long enough time, you still risk making a mistake, even if you are quite good.
-
-
-* Notes
-- I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate)
-  - The pdf is the probability that given some random cat, they will have learned to sign at some (infinitesimally small interval of) time.
-    - The hazard rate is conditional. It is the probability that /given some cat that has made it this far without singing/ what is the probability that they will sing at this infinitesimally small interval?

@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-10-14 Sat 06:42 -->
+<!-- 2023-10-17 Tue 10:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
+<title>Surviving Lawlessness - Chapter 1, Section 1-2</title>
 <meta name="author" content="Kai Aragaki" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -230,40 +230,39 @@
 </head>
 <body>
 <div id="content" class="content">
+<h1 class="title">Surviving Lawlessness - Chapter 1, Section 1-2</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgef31657">1. Introduction</a></li>
-<li><a href="#org74c057e">2. Definitions</a></li>
-<li><a href="#org07e7566">3. Teaching cats to sing</a>
+<li><a href="#org6b88e39">1. Introduction</a></li>
+<li><a href="#orgcfb44e0">2. Definitions</a></li>
+<li><a href="#org319c44b">3. Teaching cats to sing</a>
 <ul>
-<li><a href="#orgafcdccc">3.1. The probability density function</a></li>
-<li><a href="#orgb34382d">3.2. Doing stuff with the pdf</a>
+<li><a href="#org84bc2ac">3.1. The probability density function</a></li>
+<li><a href="#org87ec253">3.2. Doing stuff with the pdf</a>
 <ul>
-<li><a href="#org3a5fe5a">3.2.1. Uh oh</a></li>
-<li><a href="#orgdf18caa">3.2.2. Integrating the pdf</a></li>
+<li><a href="#orgda6d3e5">3.2.1. Uh oh</a></li>
+<li><a href="#org92c01af">3.2.2. Integrating the pdf</a></li>
 </ul>
 </li>
-<li><a href="#org1bfbe46">3.3. Hazard rates</a></li>
+<li><a href="#orgd307012">3.3. Hazard rates</a></li>
 </ul>
 </li>
-<li><a href="#org7d39ed9">4. Questions</a></li>
-<li><a href="#org3137bee">5. Questions</a></li>
-<li><a href="#orgad656a4">6. Notes</a></li>
+<li><a href="#org611d0a6">4. Notes</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgef31657" class="outline-2">
-<h2 id="orgef31657"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-org6b88e39" class="outline-2">
+<h2 id="org6b88e39"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Like it or not, things are happening all the time. Even worse, you don&rsquo;t know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don&rsquo;t know EXACTLY when these things happen. But if you&rsquo;re clever, you can work up a handful of tools to help predict when something might happen. You&rsquo;ve given your dog 20 treats and head pats - what is the probability that he&rsquo;s finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don&rsquo;t worry. We&rsquo;re going to do this together. I even brought you a snorkel.
 </p>
 </div>
 </div>
-<div id="outline-container-org74c057e" class="outline-2">
-<h2 id="org74c057e"><span class="section-number-2">2.</span> Definitions</h2>
+<div id="outline-container-orgcfb44e0" class="outline-2">
+<h2 id="orgcfb44e0"><span class="section-number-2">2.</span> Definitions</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
@@ -282,8 +281,8 @@ We&rsquo;ll learn the complications of this analysis as we move along.
 </p>
 </div>
 </div>
-<div id="outline-container-org07e7566" class="outline-2">
-<h2 id="org07e7566"><span class="section-number-2">3.</span> Teaching cats to sing</h2>
+<div id="outline-container-org319c44b" class="outline-2">
+<h2 id="org319c44b"><span class="section-number-2">3.</span> Teaching cats to sing</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that&rsquo;s a little depressing. So when possible, I&rsquo;m going to talk about other subjects. Particularly cats.
@@ -297,15 +296,15 @@ Let&rsquo;s imagine that all cats can sing. You haven&rsquo;t heard many cats si
 You&rsquo;ve been training your cat since it was born, and it&rsquo;s been a couple months now: no singing. Should you be worried?
 </p>
 </div>
-<div id="outline-container-orgafcdccc" class="outline-3">
-<h3 id="orgafcdccc"><span class="section-number-3">3.1.</span> The probability density function</h3>
+<div id="outline-container-org84bc2ac" class="outline-3">
+<h3 id="org84bc2ac"><span class="section-number-3">3.1.</span> The probability density function</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They&rsquo;ve all been training their cats since birth (the cats birth, not theirs) and told you the age that the cat started singing. You make a little plot:
 </p>
 
 
-<div id="orgd360032" class="figure">
+<div id="orgf7fbf14" class="figure">
 <p><img src="five_cats.svg" alt="five_cats.svg" class="org-svg" />
 </p>
 </div>
@@ -315,7 +314,7 @@ Looks like most cats are taking more than a year or two to learn how to sing. Yo
 </p>
 
 
-<div id="org68b9906" class="figure">
+<div id="org8b705d9" class="figure">
 <p><img src="100_cats.svg" alt="100_cats.svg" class="org-svg" />
 </p>
 </div>
@@ -325,7 +324,7 @@ It looks like somewhere between 1-2 years is the sweet spot for when most cats g
 </p>
 
 
-<div id="org16b6bfe" class="figure">
+<div id="org3b41cd4" class="figure">
 <p><img src="100_cats_dense.svg" alt="100_cats_dense.svg" class="org-svg" />
 </p>
 </div>
@@ -339,7 +338,7 @@ Whenever you are faced with these issues, you know just where to go: the lady wi
 </p>
 
 
-<div id="orgea6f276" class="figure">
+<div id="orgef81a70" class="figure">
 <p><img src="many_cats_dense.svg" alt="many_cats_dense.svg" class="org-svg" />
 </p>
 </div>
@@ -362,8 +361,8 @@ The probability density relates to our physical density in that physical density
 </p>
 </div>
 </div>
-<div id="outline-container-orgb34382d" class="outline-3">
-<h3 id="orgb34382d"><span class="section-number-3">3.2.</span> Doing stuff with the pdf</h3>
+<div id="outline-container-org87ec253" class="outline-3">
+<h3 id="org87ec253"><span class="section-number-3">3.2.</span> Doing stuff with the pdf</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They don&rsquo;t care. But you can do it.
@@ -382,7 +381,7 @@ This function isn&rsquo;t as useless as it seems. If we multiply the pdf by time
 </p>
 
 
-<div id="orgac3ed6b" class="figure">
+<div id="org43a8353" class="figure">
 <p><img src="many_cats_highlight.svg" alt="many_cats_highlight.svg" class="org-svg" />
 </p>
 </div>
@@ -392,23 +391,23 @@ This function isn&rsquo;t as useless as it seems. If we multiply the pdf by time
 It&rsquo;s almost like&#x2026;it matters&#x2026;how much area is under the curve
 </p>
 </div>
-<div id="outline-container-org3a5fe5a" class="outline-4">
-<h4 id="org3a5fe5a"><span class="section-number-4">3.2.1.</span> Uh oh</h4>
+<div id="outline-container-orgda6d3e5" class="outline-4">
+<h4 id="orgda6d3e5"><span class="section-number-4">3.2.1.</span> Uh oh</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 Yeah. I know. Calculus. Integrals, to be specific. Unfortunately, they&rsquo;re very good at finding the area under the curve in a very general way.
 </p>
 </div>
 </div>
-<div id="outline-container-orgdf18caa" class="outline-4">
-<h4 id="orgdf18caa"><span class="section-number-4">3.2.2.</span> Integrating the pdf</h4>
+<div id="outline-container-org92c01af" class="outline-4">
+<h4 id="org92c01af"><span class="section-number-4">3.2.2.</span> Integrating the pdf</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 One useful function to have to know what the probability that Fluffy should have learned to sing by now - that is, the integral from birth (\(t = 0\)) to now (\(t\)).
 </p>
 
 
-<div id="orga56aaf8" class="figure">
+<div id="org6ceb1dd" class="figure">
 <p><img src="many_cats_0-to-t.svg" alt="many_cats_0-to-t.svg" class="org-svg" />
 </p>
 </div>
@@ -428,7 +427,7 @@ Another useful function is one that tells you the probability of Fluffy still no
 </p>
 
 
-<div id="orge3066ce" class="figure">
+<div id="orgfa7680e" class="figure">
 <p><img src="many_cats_t-to-inf.svg" alt="many_cats_t-to-inf.svg" class="org-svg" />
 </p>
 </div>
@@ -461,15 +460,15 @@ It&rsquo;s important to note that if your patient had a 90% chance of not making
 </div>
 </div>
 </div>
-<div id="outline-container-org1bfbe46" class="outline-3">
-<h3 id="org1bfbe46"><span class="section-number-3">3.3.</span> Hazard rates</h3>
+<div id="outline-container-orgd307012" class="outline-3">
+<h3 id="orgd307012"><span class="section-number-3">3.3.</span> Hazard rates</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 So, a cat has trained for 7 years and sits in front of you, utterly mute. Suppose we naively tried to use our pdf to determine the probability of this cat learning to sing some time in the future:
 </p>
 
 
-<div id="org7682c9c" class="figure">
+<div id="org1cd63f8" class="figure">
 <p><img src="7-to-17.svg" alt="7-to-17.svg" class="org-svg" />
 </p>
 </div>
@@ -479,7 +478,141 @@ We calculate the area under the curve to be&#x2026;0.0073. Or 0.7%. Are we doome
 </p>
 
 <p>
-No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We do this by <i>dividing the pdf by the survival function</i>. We call this function the <i>hazard function</i>.
+No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN&rsquo;T learned how to sing. Another way to say this is that it needs to be <i>conditional</i> on the fact that the cat has existed this long without learning to sing.
+</p>
+
+<p>
+What we really want to know is some measure of the imminence of an event.
+</p>
+
+<p>
+This exists, and is known as the &rsquo;hazard rate&rsquo;. If velocity measures how soon you&rsquo;re going to hit your next meter, then hazard rate measures how soon you&rsquo;re going to hit your next event.
+</p>
+
+<p>
+Let&rsquo;s put the question we&rsquo;re actually asking into words:
+</p>
+
+<p>
+Given that our cat has not yet sung at age 7, what is the probability that this cat will learn to sing in the next&#x2026;10/5/1 year(s)?
+</p>
+
+<p>
+Or rather:
+</p>
+
+<p>
+\[Pr(t≤T < t + Δt|T≥t)\]
+</p>
+
+<p>
+The bar (\(|\)) means &rsquo;given&rsquo;. So, assuming that our cat has gone this long without singing (\(| T≤t\)) what is \(Pr(t≤T < t + Δt)\) (the probability that it&rsquo;ll learn how to sing in this next time frame (\(Δt\)))?
+</p>
+
+<p>
+This is what we WANT. How we get it requires a little rearranging - but we <i>can</i> do it. To pull this off, we need to know Bayes theorem. This guy is super hot right now as well as super dead, but we don&rsquo;t need to go in to that. What we need to know is that he proved this:
+</p>
+
+<p>
+\[
+Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
+\]
+</p>
+
+<p>
+If we compare it to our previous equation, we can match it up by setting \(A = t≤T < t + Δt\) and \(B = T≥t\). Substituting in our own \(A\) and \(B\), we get:
+</p>
+
+<p>
+\[
+Pr(t≤T < t + Δt|T≥t) = \frac{Pr(T≥t|t≤T < t + Δt)Pr(t≤T < t + Δt)}{Pr(T≥t)}
+\]
+</p>
+
+<p>
+We can work with this. Let&rsquo;s go through the chunks one at a time:
+</p>
+
+<p>
+\[
+Pr(T≥t|t≤T < t + Δt)
+\]
+</p>
+
+<p>
+Reading this out: What is the probability that our cat has learned to sing either now or in the future, given that our cat has learned to sing now or a little bit in the future?
+</p>
+
+<p>
+You might be able to sense the repetition here. What&rsquo;s the probability of something happening given it&rsquo;s happened? Well&#x2026;it&rsquo;s guaranteed. It happened. 100%. 1.
+</p>
+
+<p>
+\[
+Pr(T≥t|t≤T < t + Δt) = 1
+\]
+</p>
+
+<p>
+Next chunk:
+</p>
+
+<p>
+\[
+Pr(t≤T < t + Δt)
+\]
+</p>
+
+<p>
+This is the probability that your cat will sing between now and a bit in the future. We know this too - it&rsquo;s from the pdf. It&rsquo;s just a tiny integral:
+</p>
+
+<p>
+\[
+Pr(t≤T < t + Δt) = ∫_{t}^{t + Δt}f(x)dx
+\]
+</p>
+
+<p>
+And finally:
+</p>
+
+<p>
+\[
+Pr(T≥t)
+\]
+</p>
+
+<p>
+We&rsquo;ve seen this before, exactly - It&rsquo;s \(S(t)\)
+</p>
+
+<p>
+\[
+Pr(T≥t) = S(t)
+\]
+</p>
+
+<p>
+All together:
+</p>
+
+<p>
+\[
+Pr(t≤T < t + Δt|T≥t) = \frac{1×∫_{t}^{t + Δt}f(x)dx}{S(t)}
+\]
+</p>
+
+
+
+<p>
+Where \(Δt\) represents the timeframe we&rsquo;re interested in. But remember,
+</p>
+
+
+
+<p>
+We do this by <i>dividing the pdf by the survival function</i>. We call this function the <i>hazard function</i>.
 </p>
 
 <p>
@@ -489,41 +622,26 @@ h(x) = \frac{f(x)}{S(x)}
 </p>
 
 <p>
-This makes sense. As I said before, the survival function is always decreasing, making the output of this function larger and larger as time goes by. That makes sense: if something is guaranteed to happen, you&rsquo;d expect it to become more and more likely as your &rsquo;time runs out&rsquo;.
+This hazard function represents the expected number of events for a given time period, assuming that the event hasn&rsquo;t already happened. We could interpret \(h(10) = 100\) to mean that we would expect a 10 year old cat that hasn&rsquo;t learned to sing 100 times over during the next unit of time (in this case, years). That is, if our cat learned to sing, and then had the memory deleted from its memory, it could learn, then forget, then learn, then forget..100 times over during the course of a year.
 </p>
 
 <p>
-Individual times on this plot are known as <i>instantaneous hazard rates</i>.
+This hazard function is also known as the <i>hazard rate</i>, which is a good name. Speed is another kind of rate. If someone is going 10km/h, there&rsquo;s no guaranteeing that they&rsquo;ll be 10km away in an hour. It&rsquo;s just what you measured at the beginning. Their <i>instantaneous</i> speed. What if slow down half way through?
+</p>
+
+<p>
+Like our density example, we need to integrate to see how much hazard you might experience over a given time frame.
+</p>
+
+<p>
+Often, hazard functions go up over time - like in our cat example, and also in human mortality. But functions don&rsquo;t always need to go up. Sometimes the longer you&rsquo;ve been around, the longer you WILL be around (known as the &rsquo;Lindy effect&rsquo;). But the cumulative hazard DOES need to go up. So while it might be less risky to at each moment to keep on going, the amount of risk you experience is still non-zero, and it does get added to the ledger of risk you&rsquo;ve experienced all time. It&rsquo;s like the risk of making a mistake when learning to play the piano. If you&rsquo;ve miraculously managed to never make a mistake during the beginning stages, the risk of you making a mistake as you get better goes down. But over a long enough time, you still risk making a mistake, even if you are quite good.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org7d39ed9" class="outline-2">
-<h2 id="org7d39ed9"><span class="section-number-2">4.</span> Questions</h2>
+<div id="outline-container-org611d0a6" class="outline-2">
+<h2 id="org611d0a6"><span class="section-number-2">4.</span> Notes</h2>
 <div class="outline-text-2" id="text-4">
-<ul class="org-ul">
-<li>Is it true that all hazard functions increase at the end?</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-org3137bee" class="outline-2">
-<h2 id="org3137bee"><span class="section-number-2">5.</span> Questions</h2>
-<div class="outline-text-2" id="text-5">
-<ul class="org-ul">
-<li>Does an event have to have a possibility of not happening? Or could we do survival analysis on something that does not have the possibility of happening, like biological males getting pregnant?
-<ul class="org-ul">
-<li>By definition, a probability density function must integrate to 1</li>
-</ul></li>
-<li>If an event hasn&rsquo;t happened by time t, and it had a 90% chance of happening by now (F(t)), what can we say about the future? We can&rsquo;t say it has a 10% chance of happening - because otherwise we roll the dice and end up with an immortal human 9/10 times by this logic.
-<ul class="org-ul">
-<li>I think this more refers to the probability of seeing an event like this, given this person is from this population</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="outline-container-orgad656a4" class="outline-2">
-<h2 id="orgad656a4"><span class="section-number-2">6.</span> Notes</h2>
-<div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>I should be careful that I am not confusing probability density with hazard rate (this is a great explainer: <a href="https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate">https://stats.stackexchange.com/questions/218947/intuition-behind-the-hazard-rate</a>)
 <ul class="org-ul">
@@ -538,7 +656,7 @@ Individual times on this plot are known as <i>instantaneous hazard rates</i>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kai Aragaki</p>
-<p class="date">Created: 2023-10-14 Sat 06:42</p>
+<p class="date">Created: 2023-10-17 Tue 10:06</p>
 </div>
 </body>
 </html>
