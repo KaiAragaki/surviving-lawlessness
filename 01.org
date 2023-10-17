@@ -1,4 +1,4 @@
-#+TITLE: Surviving Lawlessness - Chapter 1, Section 1-2
+#+TITLE: Surviving Lawlessness: 1.1.1 - 1.2.1
 #+HTML_HEAD: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allegreya">
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
 
@@ -8,7 +8,7 @@ Like it or not, things are happening all the time. Even worse, you don't know wh
 * Definitions
 You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
 
-All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're 'events'. And they take a certain amount of 'time' to happen. So the analysis of them is called 'time to event analysis'. Easy enough. Sometimes it's called 'survival analysis', because it's used a lot when applied to people - sometimes it's useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they /survive/ (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I'm trying to write some notes here.)
+All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're *events*. And they take a certain amount of 'time' to happen. So the analysis of them is called *time to event analysis*. Easy enough. Sometimes it's called *survival analysis*, because it's used a lot when applied to people - sometimes it's useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they /survive/ (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I'm trying to write some notes here.)
 
 We'll learn the complications of this analysis as we move along.
 
@@ -119,14 +119,14 @@ ggplot(data.frame(x = c(0, 11)), aes(x)) +
 
 You notice that the highest peak is at around 1 year of age. This is around the time where most cats will learn to sing, but it looks like it's possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
 
-This plot is the visual representation of a /probability density function/, or (somewhat confusingly for fans of the widely used Adobe file format) a pdf. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 1', I'm betting everything I got against you.
+This plot is the visual representation of a *probability density function*, or (somewhat confusingly for fans of the widely used Adobe file format) a *pdf*. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 1', I'm betting everything I got against you.
 
 Density can also refer to materials. A quick search tells me that osmium is the densest naturally occurring material on Earth (besides me, depending on who you ask). Its density is 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I'm not even talking mm, or nm - not even angstroms. I'm talking about an infinitesimally small point in space. You know the answer. It's 0g.
 
-The probability density relates to our physical density in that physical density measures mass over volume, /this/ (but not all) probability density measures events over time.
+The probability density relates to our physical density in that physical density measures mass over volume, but this particular, time-to-event probability density measures events over time. There are other probability densities - like people's heights, for instance - that do not measure densities over time. But we will largely be concerned with events/time densities.
 
 ** Doing stuff with the pdf
-Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They don't care. But you can do it.
+Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They probably don't care. But you can do it.
 
 Just like you can find out how much mass of a substance there is by knowing how much volume there is and knowing its density, you can also figure out the probability of an event happening by knowing the pdf and the time range.
 
@@ -216,17 +216,17 @@ $$
 S(t)=Pr(T≥t)=\int^{∞}_{t}f(x)dx
 $$
 
-In the medical field, this might be the probability that a patient will survive until time $t$. This is why it's called the 'survival function' and is denoted by $S$.
+In the medical field, this might be the probability that a patient will survive until time $t$. This is why it's called the *survival function* and is denoted by $S$.
 
 $S(t)$ has some important properties. It always goes down, never up - also known as 'monotone decreasing'. It also starts at 1 (that is, $S(0) = 1$. And it ends at 0 ($S(∞) = 0$). Thus, no cats are born singing, and all cats can learn to sing.
 
-Side note - $S(t)$ HAS to be monotone decreasing because it is the integral of a function that can never be negative (you'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0). $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
+Side note - $S(t)$ /has/ to be monotone decreasing because it is the integral of a function that can never be negative (you'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0). $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
 
 So, $F(t)$ is the probability that an event will have occurred by time $t$, while $S(t)$ is the probability that an event will NOT have occurred by time $T$.
 
 It's important to note that if your patient had a 90% chance of not making it to time $t$ (that is, $F(t) = 0.9$), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn't make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all. We'll learn how to properly calculate their probability of dying in the future in the next section.
 
-** Hazard rates
+** Conditional probability
 So, a cat has trained for 7 years and sits in front of you, utterly mute. Suppose we naively tried to use our pdf to determine the probability of this cat learning to sing some time in the future:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
@@ -251,7 +251,7 @@ ggplot(data.frame(x = c(0, 11)), aes(x)) +
 
 We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to have a cat that can't sing???
 
-No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing.
+No. Remember, we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing. It's kind of like going up to a red light and waiting there for a long time. Each second that ticks by means the probability of it turning green increases, because it /has/ to turn green eventually (yes, I understand that traffic lights aren't probabilistic and are probably on some stupid timer. I don't care. Pretend like they are.).
 
 Let's put the question we're actually asking into words:
 
@@ -259,7 +259,9 @@ Given that our cat has not yet sung at age 7, what is the probability that this 
 
 Or rather:
 
-$$Pr(t≤T < t + Δt|T≥t)$$
+$$
+Pr(t≤T < t + Δt|T≥t)
+$$
 
 The bar ($|$) means 'given'. So, assuming that our cat has gone this long without singing ($| T≤t$) what is $Pr(t≤T < t + Δt)$ (the probability that it'll learn how to sing in this next time frame ($Δt$))?
 
@@ -321,7 +323,9 @@ $$
 
 This is the probability of experiencing some event in a given time frame, given no event has been observed previously. This last 'conditional' part is important, since a dead guy has no chance of dying in the future.
 
-It can be mathematically useful to determine the 'instantaneous rate' of an event. This is the hazard rate, or hazard function. The interpretation of this is quite challenging, and in my personal opinion it tends to be more useful when used /for/ other things, rather than as itself.
+** The hazard rate
+
+It can be mathematically useful to determine the 'instantaneous rate' of an event. This is the *hazard rate*, or *hazard function*. The interpretation of this is quite challenging, and in my personal opinion it tends to be more useful when used /for/ other things, rather than as itself.
 
 It's just the probability we calculated above, divided by the same time frame ($Δt$), as the time frame approaches 0. A higher value means greater imminence of the event, a smaller number means lower imminence. It can go up and down, but it can't be negative. It can be way, way bigger than 1, so it's not a probability.
 
@@ -334,3 +338,118 @@ Often, hazard functions go up over time - like in our cat example, and also in h
 I'm not super jazzed about a practical interpretation of hazard functions, but here I go:
 
 This hazard function represents the expected number of events for a given time period, assuming that the event hasn't already happened. We could interpret $h(10) = 100$ to mean that we would expect a 10 year old cat that hasn't learned to sing 100 times over during the next unit of time (in this case, years). That is, if our cat learned to sing, and then had the memory deleted from its memory, it could learn, then forget, then learn, then forget..100 times over during the course of a year.
+
+The integral of the hazard rate - known as the 'cumulative hazard' - is denoted by
+
+$$
+H(t) =∫_{0}^{t}h(x)dx
+$$
+
+It's essentially 'how much risk have you experienced from time 0 to now'
+
+** All previous functions in terms of the hazard rate
+
+*** S(x)
+Really, all these equations are different ways of representing the same data, when you get right down to it. As such, you can express $S(t)$ and $f(t)$ in terms of $h(t)$, giving you a handy 'one equation to rule them all'.
+
+You can do this with a little work, first remembering that we showed that
+
+$$
+h(x) = \frac{f(x)}{S(x)}
+$$
+
+If you remember that
+
+$$
+S(t) = ∫_{t}^{∞}f(x)dx
+$$
+
+You can determine that
+
+$$
+S^{′}(t) = \frac{d}{dt}∫_{t}^{∞}f(x)dx = 0 - f(t) ⇒
+$$
+
+$$
+f(t) = -S′(t)
+$$
+
+(The arrow ($⇒$) means 'implies', or rather, 'it follows', or some other fancy phrase that means 'this next thing is true because of what I just said')
+
+Now we plug this back in to our previous equation, giving
+
+$$
+h(t) = \frac{f(t)}{S(t)} = \frac{S′(t)}{S(t)}
+$$
+
+If you remember, the derivative of $ln(x)$ is $1/x$. If you remember the chain rule, you'll note that $\frac{S′(t)}{S(t)}$ is just the derivative of $-ln(S(t))$. So we can write:
+
+$$
+h(t) = \frac{S^{′}(t)}{S(t)} = -\frac{d}{dt}ln(S(t))
+$$
+
+We can solve for $S(u)$ where $u$ is some specific time (I'd normally use $t$, but we're already using it here as just some variable, like $x$) by integrating both sides from $0$ to $u$
+
+$$
+ln(S(t))|_{0}^{u}=-∫_{0}^{u}h(t)dt
+$$
+
+This is equal to:
+
+$$
+ln(S(u)) - ln(S(0))
+$$
+
+We know that survival chance /must/ start at 1, so $S(0) = 1$, and $ln(1) = 0$. So,
+
+$$
+ln(S(u)) - ln(S(0)) = ln(S(u)) = -∫_{0}^{u}h(t)dt
+$$
+
+Raising both sides by $e$, we get
+
+$$
+S(u) = e^{-∫_{0}^{u}h(t)dt}
+$$
+
+*** f(x)
+You can also use the fact that
+
+$$
+h(t) = \frac{f(t)}{S(t)} ⇒
+$$
+
+$$
+S(t) = \frac{f(t)}{h(t)}
+$$
+
+to describe $f(u)$ in terms of $h(t)$
+
+$$
+S(u) = \frac{f(u)}{h(u)} = e^{-∫_{0}^{u}h(t)dt} ⇒
+$$
+
+$$
+f(u) = h(u) e^{-∫_{0}^{u}h(t)dt}
+$$
+
+*** F(x)
+
+$F(t)$ is pretty simple as well, since it's just $1 - S(t)$ (or more appropriately, but equivalently, $S(t) = 1 - F(t)$)
+
+$$
+S(u) = 1 - F(u) = e^{-∫_{0}^{u}h(t)dt} ⇒
+$$
+
+$$
+F(u) = 1 - e^{-∫_{0}^{u}h(t)dt}
+$$
+
+We did it. We described all of our big equations in terms of the hazard function.
+
+* Summary
+- $f(x)$: The probability density function of events across time
+- $F(x)$: The probability of experiencing an event by time $x$
+- $S(x)$: The probability of not experiencing an event by time $x$
+- $h(x)$: The hazard function. Interpretation is tough, but essentially the 'amount of risk' for an event experienced at time $x$.
+- $H(x)$: The cumulative amount of 'risk' experienced up to time $x$
