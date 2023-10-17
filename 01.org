@@ -10,19 +10,17 @@ You - like me - are only learning about this so you can impress all your friends
 
 All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're 'events'. And they take a certain amount of 'time' to happen. So the analysis of them is called 'time to event analysis'. Easy enough. Sometimes it's called 'survival analysis', because it's used a lot when applied to people - sometimes it's useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they /survive/ (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I'm trying to write some notes here.)
 
-All of these things happen (are 'events', as we might call them) and happen at a certain 'time'. They might be best analyzed by /time to event/ analysis.
-
 We'll learn the complications of this analysis as we move along.
 
 * Teaching cats to sing
-A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that's a little depressing. So when possible, I'm going to talk about other subjects. Particularly cats.
+A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that's a little depressing. So when possible, I'm going to talk about other subjects. Particularly cats. Plus, thinking about how this applies to, say, human survival is a good mental exercise.
 
 Let's imagine that all cats can sing. You haven't heard many cats sing because no one has bothered to try to train them. But with enough training, /ALL/ cats can sing. Note - no cats are BORN able to sing. They need training. (I'm setting up these rules because they are involved in math later. Don't worry about it now.)
 
 You've been training your cat since it was born, and it's been a couple months now: no singing. Should you be worried?
 
 ** The probability density function
-You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They've all been training their cats since birth (the cats birth, not theirs) and told you the age that the cat started singing. You make a little plot:
+You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They've all been training their cats since birth (the cat's birth, not theirs) and told you the age that the cat started singing. You make a little plot:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file five_cats.svg
@@ -50,7 +48,7 @@ ggplot(df, aes(x = sing_time, y = cat)) +
 #+RESULTS:
 [[file:five_cats.svg]]
 
-Looks like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you're not an idiot: you know just a few samples can be misleading. Plus you know this information will NOT be motivating for your cat. You begin a cat census, asking anyone and everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people (this is not a popular hobby):
+Looks like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you're not an idiot: you know just a few samples can be misleading. Plus you know this information will NOT be motivating for your cat. You begin a cat census, asking everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people (this is not a popular hobby):
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file 100_cats.svg
@@ -97,7 +95,7 @@ df |> ggplot(aes(x = sing_time)) +
 
 It looks a bit lumpy. You want to know if there truly is a 'second wind' of learning at around 5 years or if it's just statistical noise - but you really left it all out on the field when you made all those calls for the cat census. You don't think you could gather even /more/ cat data.
 
-Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from  forest fauna) a beautiful plot (which as we all know is - by itself - worth all the viscera in the world). But this is not any plot: it is the fabled plot you seek, that shows the theoretical distribution of time-to-cat-singing. It's what you would have gotten if you had done an infinite cat census:
+Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from forest fauna) a beautiful plot (which as we all know is - by itself - worth all the viscera in the world). But this is not any plot: it is the fabled plot you seek, the one that shows the theoretical distribution of time-to-cat-singing. It's what you would have gotten if you had done an infinite cat census:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file many_cats_dense.svg
@@ -226,7 +224,7 @@ Side note - $S(t)$ HAS to be monotone decreasing because it is the integral of a
 
 So, $F(t)$ is the probability that an event will have occurred by time $t$, while $S(t)$ is the probability that an event will NOT have occurred by time $T$.
 
-It's important to note that if your patient had a 90% chance of not making it to time $t$ (that is, $F(t) = 0.9$), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn't make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all.
+It's important to note that if your patient had a 90% chance of not making it to time $t$ (that is, $F(t) = 0.9$), yet they are still alive, it does not mean that your patient has only a 10% chance of dying in the future! That would be bonkers. You roll the dice on that patient and they have a 9/10 chance of immortality? No. What this means is that in all the patients seen previously, 90% of them didn't make it this long, and 10% of them made it longer. Unfortunately, in the end, death still comes for us all. We'll learn how to properly calculate their probability of dying in the future in the next section.
 
 ** Hazard rates
 So, a cat has trained for 7 years and sits in front of you, utterly mute. Suppose we naively tried to use our pdf to determine the probability of this cat learning to sing some time in the future:
