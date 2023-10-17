@@ -253,10 +253,6 @@ We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to 
 
 No, because we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing.
 
-What we really want to know is some measure of the imminence of an event.
-
-This exists, and is known as the 'hazard rate'. If velocity measures how soon you're going to hit your next meter, then hazard rate measures how soon you're going to hit your next event.
-
 Let's put the question we're actually asking into words:
 
 Given that our cat has not yet sung at age 7, what is the probability that this cat will learn to sing in the next...10/5/1 year(s)?
