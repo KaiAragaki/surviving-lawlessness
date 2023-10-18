@@ -233,7 +233,7 @@ library(bladdr)
 
 ggplot(data.frame(x = c(0, 11)), aes(x)) +
   stat_function(fun = dgamma, args = c(2)) +
-  stat_function(fun = dgamma, args = c(2), xlim = c(2, 11), geom = "area", fill = "gray50") +
+  stat_function(fun = dgamma, args = c(2), xlim = c(7, 11), geom = "area", fill = "gray50") +
   theme_tufte() +
   labs(x = "Cat age (human years)") +
   theme(axis.ticks.y = element_blank(),
@@ -265,19 +265,19 @@ The bar ($|$) means 'given'. So, assuming that our cat has gone this long withou
 This is what we WANT. How we get it requires a little rearranging - but we /can/ do it. To pull this off, we need to know Bayes theorem. This guy Bayes is super hot right now as well as super dead, but we don't need to go in to that. What we need to know is that he proved this:
 
 $$
-Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
+Pr(A|B) = \frac{\textcolor{red}{Pr(B|A)}\textcolor{blue}{Pr(A)}}{\textcolor{green}{Pr(B)}}
 $$
 
 If we compare it to our previous equation, we can match it up by setting $A = t≤T < t + Δt$ and $B = T≥t$. Substituting in our own $A$ and $B$, we get:
 
 $$
-Pr(t≤T < t + Δt|T≥t) = \frac{Pr(T≥t|t≤T < t + Δt)Pr(t≤T < t + Δt)}{Pr(T≥t)}
+Pr(t≤T < t + Δt|T≥t) = \frac{\textcolor{red}{Pr(T≥t|t≤T < t + Δt)}\textcolor{blue}{Pr(t≤T < t + Δt)}}{\textcolor{green}{Pr(T≥t)}}
 $$
 
 We can work with this. Let's go through the chunks one at a time:
 
 $$
-Pr(T≥t|t≤T < t + Δt)
+\textcolor{red}{Pr(T≥t|t≤T < t + Δt)}
 $$
 
 Reading this out: What is the probability that our cat has learned to sing either now or in the future, given that our cat has learned to sing now or a little bit in the future?
@@ -285,37 +285,37 @@ Reading this out: What is the probability that our cat has learned to sing eithe
 You might be able to sense the repetition here. What's the probability of something happening given it's happened? Well...it's guaranteed. It happened. 100%. 1.
 
 $$
-Pr(T≥t|t≤T < t + Δt) = 1
+\textcolor{red}{Pr(T≥t|t≤T < t + Δt)} = \textcolor{red}{1}
 $$
 
 Next chunk:
 
 $$
-Pr(t≤T < t + Δt)
+\textcolor{blue}{Pr(t≤T < t + Δt)}
 $$
 
 This is the probability that your cat will sing between now and a bit in the future. We know this too - it's from the pdf. It's just a tiny integral:
 
 $$
-Pr(t≤T < t + Δt) = ∫_{t}^{t + Δt}f(x)dx
+\textcolor{blue}{Pr(t≤T < t + Δt)} = \textcolor{blue}{∫_{t}^{t + Δt}f(x)dx}
 $$
 
 And finally:
 
 $$
-Pr(T≥t)
+\textcolor{green}{Pr(T≥t)}
 $$
 
 We've seen this before, exactly - It's $S(t)$
 
 $$
-Pr(T≥t) = S(t)
+\textcolor{green}{Pr(T≥t)} = \textcolor{green}{S(t)}
 $$
 
 All together:
 
 $$
-Pr(t≤T < t + Δt|T≥t) = \frac{1×∫_{t}^{t + Δt}f(x)dx}{S(t)}
+Pr(t≤T < t + Δt|T≥t) = \frac{\textcolor{red}{1}×\textcolor{blue}{∫_{t}^{t + Δt}f(x)dx}}{\textcolor{green}{S(t)}}
 $$
 
 This is the probability of experiencing some event in a given time frame, given no event has been observed previously. This last 'conditional' part is important, since a dead guy has no chance of dying in the future.
@@ -368,7 +368,7 @@ S^{′}(t) = \frac{d}{dt}∫_{t}^{∞}f(x)dx = 0 - f(t) ⇒
 $$
 
 $$
-f(t) = -S′(t)
+f(t) = -S^{'}(t)
 $$
 
 (The arrow ($⇒$) means 'implies', or rather, 'it follows', or some other fancy phrase that means 'this next thing is true because of what I just said')
