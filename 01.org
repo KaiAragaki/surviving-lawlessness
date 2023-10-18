@@ -3,24 +3,22 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
 
 * Introduction
-Like it or not, things are happening all the time. Even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches. But you don't know EXACTLY when these things happen. But if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
+Like it or not, things are happening all the time. Even worse, you don't know when a lot of these things will happen. Sure, you might have a general idea - kids learn to walk around the age of 1 or so, students tend to graduate after 4 years of undergraduate school, and dogs learn to shake after a certain number of treats and head scratches - but you don't know /exactly/ when these things happen. However, if you're clever, you can work up a handful of tools to help predict when something might happen. You've given your dog 20 treats and head pats - what is the probability that he's finally going to nail the handshake thing on the next one? Or maybe you provide a group of students with a dedicated tutor - do they graduate faster? These are the kinds of questions you can answer if you are willing to wade into the mires of statistics. Don't worry. We're going to do this together. I even brought you a snorkel.
 
 * Definitions
 You - like me - are only learning about this so you can impress all your friends at dinner parties. You go to many of these parties because you are very popular and normal. But in order to woo your friends, you need to know what to call these things.
 
-All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're *events*. And they take a certain amount of 'time' to happen. So the analysis of them is called *time to event analysis*. Easy enough. Sometimes it's called *survival analysis*, because it's used a lot when applied to people - sometimes it's useful to see if a drug is keeping people alive, but unfortunately the alternative is death. You want to track how long they /survive/ (Aside: yes, there are other ways to study people besides just alive/dead. But give me a break. I'm trying to write some notes here.)
-
-We'll learn the complications of this analysis as we move along.
+All the above mentioned scenarios - dog shaking, baby walking, student graduating - they're *events*, and they take a certain amount of time to happen. So the analysis of them is called *time-to-event analysis*. Easy enough. Sometimes, in the context of human well-being (or lack thereof) it's called *survival analysis* - but they're the same thing.
 
 * Teaching cats to sing
-A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. But that's a little depressing. So when possible, I'm going to talk about other subjects. Particularly cats. Plus, thinking about how this applies to, say, human survival is a good mental exercise.
+A book about time-to-event analysis might get a little hung up on things that break, die, or wear out. That's a little depressing. So when possible, I'm going to talk about other subjects. Particularly cats. Plus, thinking about how this applies to, say, human survival is a good mental exercise.
 
-Let's imagine that all cats can sing. You haven't heard many cats sing because no one has bothered to try to train them. But with enough training, /ALL/ cats can sing. Note - no cats are BORN able to sing. They need training. (I'm setting up these rules because they are involved in math later. Don't worry about it now.)
+Let's imagine that all cats can sing. You haven't heard many cats sing because no one has bothered to try to train them. But with enough training, /ALL/ cats can sing. Note - no cats are BORN able to sing. They need training[fn:: I'm setting up these rules because they are involved in math later. Don't worry about it now.].
 
 You've been training your cat since it was born, and it's been a couple months now: no singing. Should you be worried?
 
 ** The probability density function
-You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They've all been training their cats since birth (the cat's birth, not theirs) and told you the age that the cat started singing. You make a little plot:
+You poke around the neighborhood and see how your neighbors are faring teaching their cats to sing. They've all been training their cats since birth[fn:: The cat's birth, not theirs] and told you the age that the cat started singing. You make a little plot:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file five_cats.svg
@@ -48,7 +46,7 @@ ggplot(df, aes(x = sing_time, y = cat)) +
 #+RESULTS:
 [[file:five_cats.svg]]
 
-Looks like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you're not an idiot: you know just a few samples can be misleading. Plus you know this information will NOT be motivating for your cat. You begin a cat census, asking everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people (this is not a popular hobby):
+It like most cats are taking more than a year or two to learn how to sing. Your fears are put at ease for a moment, but you're not an idiot: you know just a few samples can be misleading[fn:: Plus you know this information will NOT be motivating for your cat]. You begin a cat census, asking everyone who has started training their cat from birth how long it took them for their cats to sing. The best you can do is scrape together 100 people[fn:: This is not a popular hobby]:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file 100_cats.svg
@@ -95,7 +93,7 @@ df |> ggplot(aes(x = sing_time)) +
 
 It looks a bit lumpy. You want to know if there truly is a 'second wind' of learning at around 5 years or if it's just statistical noise - but you really left it all out on the field when you made all those calls for the cat census. You don't think you could gather even /more/ cat data.
 
-Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from forest fauna) a beautiful plot (which as we all know is - by itself - worth all the viscera in the world). But this is not any plot: it is the fabled plot you seek, the one that shows the theoretical distribution of time-to-cat-singing. It's what you would have gotten if you had done an infinite cat census:
+Whenever you are faced with these issues, you know just where to go: the lady with completely black eyes that lives in the woods in a dilapidated cottage. She give you (in exchange for a surprisingly large amount of viscera from forest fauna) a beautiful plot [fn:: which as we all know is - by itself - worth all the viscera in the world] that shows the theoretical distribution of time-to-cat-singing. It's what you would have gotten if you had done an infinite cat census:
 
 #+HEADER: :R-dev-args bg="transparent" :width 7 :height 3.5
 #+begin_src R :results graphics file :session :exports results :file many_cats_dense.svg
@@ -116,19 +114,18 @@ ggplot(data.frame(x = c(0, 11)), aes(x)) +
 #+RESULTS:
 [[file:many_cats_dense.svg]]
 
-
 You notice that the highest peak is at around 1 year of age. This is around the time where most cats will learn to sing, but it looks like it's possible for cats so sing earlier and later, too. (Note that I mentioned earlier that ALL cats will learn how to sing.)
 
-This plot is the visual representation of a *probability density function*, or (somewhat confusingly for fans of the widely used Adobe file format) a *pdf*. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 1', I'm betting everything I got against you.
+This plot is the visual representation of a *probability density function*, or a *pdf* [fn:: Perhaps somewhat confusingly for fans of the widely used Adobe file format]. To explain why it's called that, a trick question: What is the probability that a cat will learn to sing on the instant of its 2nd birthday? Answer: 0. Why? Because that instant is such a very very very very (etc) short amount of time. I don't care that the plot shows a high peak at that point - if we're betting on when your cat would sing, and you say 'the instant it turns 1', I'm betting everything I've got against you.
 
-Density can also refer to materials. A quick search tells me that osmium is the densest naturally occurring material on Earth (besides me, depending on who you ask). Its density is 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I'm not even talking mm, or nm - not even angstroms. I'm talking about an infinitesimally small point in space. You know the answer. It's 0g.
+To explain by way of analogy, density can also refer to materials. Osmium is the densest naturally occurring material on Earth with a density of 22.59g/cm³. So, tell me: how heavy is it in the smallest possible unit of volume? I'm not even talking mm, or nm - not even angstroms. I'm talking about an infinitesimally small point in space. You know the answer. It's 0g.
 
 The probability density relates to our physical density in that physical density measures mass over volume, but this particular, time-to-event probability density measures events over time. There are other probability densities - like people's heights, for instance - that do not measure densities over time. But we will largely be concerned with events/time densities.
 
 ** Doing stuff with the pdf
-Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water. They probably don't care. But you can do it.
+Water has a convenient density of around 1g/mL. Knowing this, and knowing someone has 10mL of water, you can tell them that they have 10g of water.
 
-Just like you can find out how much mass of a substance there is by knowing how much volume there is and knowing its density, you can also figure out the probability of an event happening by knowing the pdf and the time range.
+Just like you can find out how much mass of a substance there is by knowing the volume and density, you can also figure out the probability of an event happening by knowing the pdf and the time range.
 
 Before we go any further, some math notation. I'm going to call the pdf $f$, and some arbitrary time $t$. So $f(t)$ is the probability of some event at time $t$ (which is, remember, 0).
 
@@ -216,11 +213,11 @@ $$
 S(t)=Pr(T≥t)=\int^{∞}_{t}f(x)dx
 $$
 
-In the medical field, this might be the probability that a patient will survive until time $t$. This is why it's called the *survival function* and is denoted by $S$.
+In the medical field, this might be the probability that a patient will survive until /at least/ time $t$. This is why it's called the *survival function* and is denoted by $S$.
 
-$S(t)$ has some important properties. It always goes down, never up - also known as 'monotone decreasing'. It also starts at 1 (that is, $S(0) = 1$. And it ends at 0 ($S(∞) = 0$). Thus, no cats are born singing, and all cats can learn to sing.
+$S(t)$ has some important properties. It always goes down, never up - also known as *monotone decreasing*. It also starts at 1 (that is, $S(0) = 1$. And it ends at 0 ($S(∞) = 0$). Thus, no cats are born singing, and all cats can learn to sing.
 
-Side note - $S(t)$ /has/ to be monotone decreasing because it is the integral of a function that can never be negative (you'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0). $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
+Side note - $S(t)$ /has/ to be monotone decreasing because it is the integral of a function ($f(t)$) that can never be negative[fn:: You'll need to think about the relationship between a curve and its integral - but basically it goes up whenever it 'adds' more area under the curve and goes down whenever it 'subtracts' area under the curve - which happens when the curve being integrated goes below 0]. $f(t)$ can never be negative, because negative probabilities do not make sense. It either happens or it doesn't - it can't 'anti-happen'.
 
 So, $F(t)$ is the probability that an event will have occurred by time $t$, while $S(t)$ is the probability that an event will NOT have occurred by time $T$.
 
@@ -249,9 +246,9 @@ ggplot(data.frame(x = c(0, 11)), aes(x)) +
 #+RESULTS:
 [[file:7-to-17.svg]]
 
-We calculate the area under the curve to be...0.0073. Or 0.7%. Are we doomed to have a cat that can't sing???
+We calculate the area under the curve to be...0.007. Or 0.7%. Are we doomed to have a cat that can't sing???
 
-No. Remember, we assume that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing. It's kind of like going up to a red light and waiting there for a long time. Each second that ticks by means the probability of it turning green increases, because it /has/ to turn green eventually (yes, I understand that traffic lights aren't probabilistic and are probably on some stupid timer. I don't care. Pretend like they are.).
+No. Remember, we assumed that all cats will EVENTUALLY learn to sing. But how do we take this in to account? We have to take into account all the time that the cat HASN'T learned how to sing. Another way to say this is that it needs to be /conditional/ on the fact that the cat has existed this long without learning to sing. It's kind of like going up to a red light and waiting there for a long time. Each second that ticks by means the probability of it turning green increases, because it /has/ to turn green eventually[fn:: Yes, I understand that traffic lights aren't probabilistic and are probably on some stupid timer. I don't care. Pretend like they are.].
 
 Let's put the question we're actually asking into words:
 
@@ -265,7 +262,7 @@ $$
 
 The bar ($|$) means 'given'. So, assuming that our cat has gone this long without singing ($| T≤t$) what is $Pr(t≤T < t + Δt)$ (the probability that it'll learn how to sing in this next time frame ($Δt$))?
 
-This is what we WANT. How we get it requires a little rearranging - but we /can/ do it. To pull this off, we need to know Bayes theorem. This guy is super hot right now as well as super dead, but we don't need to go in to that. What we need to know is that he proved this:
+This is what we WANT. How we get it requires a little rearranging - but we /can/ do it. To pull this off, we need to know Bayes theorem. This guy Bayes is super hot right now as well as super dead, but we don't need to go in to that. What we need to know is that he proved this:
 
 $$
 Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
